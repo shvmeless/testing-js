@@ -1,0 +1,19 @@
+# NODE MODULES
+/node_modules
+
+# USER CONFIG
+/.vscode
+
+# BUILD
+/build
+/dist
+
+# TEMP
+/backup
+/custom
+/others
+/temp
+
+# OTHERS
+/.scannerwork
+/coverage

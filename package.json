@@ -1,0 +1,25 @@
+{
+	"name": "shvmeless.testing",
+	"displayName": "Shvmeless: Testing",
+	"description": "A simple and fast JavaScript framework for tests.",
+	"version": "0.1.0",
+	"author": "Luciano Aedo Puga <shvme.development@gmail.com>",
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/shvmeless/testing-js.git"
+	},
+	"scripts": {
+		"delete:node": "rimraf ./node_modules"
+	},
+	"devDependencies": {
+		"@types/node": "17.0.23",
+		"@typescript-eslint/eslint-plugin": "5.18.0",
+		"@typescript-eslint/parser": "5.18.0",
+		"eslint": "8.12.0",
+		"rimraf": "3.0.2",
+		"ts-node": "10.7.0",
+		"ts-node-dev": "1.1.8",
+		"typescript": "4.6.3"
+	}
+}
