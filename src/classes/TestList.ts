@@ -1,6 +1,5 @@
 // IMPORTS
 import { Test, TestContext, TestFile, TestGroup } from '../utils/interfaces';
-import { caller } from '../helpers/general.helper';
 
 // CLASS
 class TestList {
@@ -59,8 +58,6 @@ class TestList {
 	// NEW
 	public newContext ( desc: string ): void {
 
-		if ( !this.getCurrentFile() ) this.newFile( caller( 3 ) );
-
 		if ( !desc ) desc = 'Default context:';
 
 		const context: TestContext = {
@@ -75,8 +72,6 @@ class TestList {
 
 	// NEW
 	public newGroup ( desc: string ): void {
-
-		if ( !this.getCurrentFile() ) this.newFile( caller( 3 ) );
 
 		if ( !this.getCurrentContext() ) this.newContext( '' );
 
@@ -95,7 +90,6 @@ class TestList {
 	// NEW
 	public newTest ( result: boolean, message: string ): void {
 
-		if ( !this.getCurrentFile() ) this.newFile( caller( 3 ) );
 		if ( !this.getCurrentContext() ) this.newContext( '' );
 		if ( !this.getCurrentGroup() ) this.newGroup( '' );
 
