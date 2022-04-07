@@ -1,6 +1,6 @@
 // IMPORTS
-import Tester from './classes/Tester';
 import testList from './classes/TestList';
+import Tester from './classes/Tester';
 
 // FUNCTION
 export function context ( desc: string ): void {

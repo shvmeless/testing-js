@@ -1,9 +1,11 @@
+#!/usr/bin/env node
+
 // IMPORTS
 import { searchTestFiles } from './helpers/general.helper';
+import { displayFile } from './helpers/display.helper';
 import { Option, program } from 'commander';
 import testList from './classes/TestList';
 import { resolve } from 'path';
-import { displayFile } from './helpers/display.helper';
 
 // OPTIONS
 const dir = new Option( '--dir <directory>', 'Set the directory where to find the tests files.' ).default( '.' );
