@@ -3,6 +3,7 @@ import { searchTestFiles } from './helpers/general.helper';
 import { Option, program } from 'commander';
 import testList from './classes/TestList';
 import { resolve } from 'path';
+import { displayFile } from './helpers/display.helper';
 
 // OPTIONS
 const dir = new Option( '--dir <directory>', 'Set the directory where to find the tests files.' ).default( '.' );
@@ -28,6 +29,10 @@ program
 			testList.newFile( file );
 			await import( file );
 
+		}
+
+		for ( const file of testList.getList() ) {
+			displayFile( file, currentPath );
 		}
 
 		process.exit();
