@@ -1,2 +1,8 @@
+// IMPORTS
+import Tester from './classes/Tester';
+import testList from './classes/TestList';
 
-console.log( 'shvmeless.testing' );
+// EXPORTS
+export const context = testList.newContext;
+export const description = testList.newGroup;
+export const check = Tester;
