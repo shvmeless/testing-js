@@ -2,7 +2,15 @@
 import Tester from './classes/Tester';
 import testList from './classes/TestList';
 
-// EXPORTS
-export const context = testList.newContext;
-export const description = testList.newGroup;
+// FUNCTION
+export function context ( desc: string ): void {
+	testList.newContext( desc );
+}
+
+// FUNCTION
+export function description ( desc: string ): void {
+	testList.newGroup( desc );
+}
+
+// CLASS
 export const check = Tester;
