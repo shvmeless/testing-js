@@ -20,6 +20,11 @@ try {
 	destiny = resolve( __dirname, './dist/README.md' );
 	copyFileSync( origin, destiny );
 
+	// NPM
+	origin = resolve( __dirname, './.npmrc' );
+	destiny = resolve( __dirname, './dist/.npmrc' );
+	copyFileSync( origin, destiny );
+
 	// PACKAGE.JSON
 	const newJSON: unknown = { ...packageJSON, devDependencies: undefined, scripts: undefined };
 	destiny = resolve( __dirname, './dist/package.json' );
