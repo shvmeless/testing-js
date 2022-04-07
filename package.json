@@ -9,8 +9,28 @@
 		"type": "git",
 		"url": "https://github.com/shvmeless/testing-js.git"
 	},
+	"keywords": [
+		"test",
+		"testing",
+		"framework",
+		"typescript"
+	],
+	"main": "index.js",
+	"bin": "./command.js",
+	"exports": [
+		"./index.js"
+	],
+	"files": [
+		"classes",
+		"helpers",
+		"utils"
+	],
 	"scripts": {
-		"delete:node": "rimraf ./node_modules"
+		"delete:node": "rimraf ./node_modules",
+		"delete:build": "rimraf ./dist",
+		"build": "ts-node ./build.ts",
+		"pack": "npm pack ./dist",
+		"publish": "npm publish ./dist"
 	},
 	"devDependencies": {
 		"@types/node": "17.0.23",
