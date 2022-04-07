@@ -1,5 +1,7 @@
 // IMPORTS
 import callerPath from 'caller-path';
+import { readdirSync } from 'fs';
+import { resolve } from 'path';
 
 // FUNCTION
 export function stringify ( value: unknown ): string {
@@ -17,6 +19,32 @@ export function stringify ( value: unknown ): string {
 	else if ( typeof value === 'object' ) output = JSON.stringify( value );
 
 	return `${ output }`;
+
+}
+
+// FUNCTION
+export function searchTestFiles ( directory: string, typescript: boolean ): string[] {
+
+	const dirents = readdirSync( directory, { withFileTypes: true } );
+
+	const files = dirents
+		.filter( ( fn ) => {
+
+			if ( fn.name === 'node_modules' ) return false;
+			if ( fn.isDirectory() ) return true;
+			if ( fn.name.match( new RegExp( `[.]test[.]${ typescript ? 'ts' : 'js' }$` ) ) ) return true;
+
+			return false;
+
+		} )
+		.map( ( dirent ) => {
+
+			const res = resolve( directory, dirent.name );
+			return dirent.isDirectory() ? searchTestFiles( res, typescript ) : res;
+
+		} );
+
+	return Array.prototype.concat( ...files );
 
 }
 
