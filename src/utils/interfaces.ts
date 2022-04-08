@@ -1,6 +1,12 @@
 
 // INTERFACES
 
+export interface TestCount {
+	total: number,
+	successful: number,
+	failed: number,
+}
+
 export interface TestFile {
 	path: string,
 	result: boolean,
