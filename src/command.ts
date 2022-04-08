@@ -6,6 +6,7 @@ import { displayFile } from './helpers/display.helper';
 import { Option, program } from 'commander';
 import testList from './classes/TestList';
 import { resolve } from 'path';
+import { register } from 'ts-node';
 
 // OPTIONS
 const dir = new Option( '--dir <directory>', 'Set the directory where to find the tests files.' ).default( '.' );
@@ -14,7 +15,7 @@ const typescript = new Option( '--typescript', '' ).default( false );
 // PROGRAM
 program
 	.description( 'Execute test files.' )
-	.version( '0.1.0' )
+	.version( '0.1.2' )
 	.addOption( dir )
 	.addOption( typescript )
 	.action( async ( options ) => {
@@ -29,7 +30,18 @@ program
 		for ( const file of targetFiles ) {
 
 			testList.newFile( file );
-			await import( file );
+
+			const registerer = register( {
+				compilerOptions: {
+					moduleResolution: 'node',
+					module: 'CommonJS',
+					target: 'es2016',
+				},
+			} );
+
+			registerer.enabled( true );
+			await require( file );
+			registerer.enabled( false );
 
 		}
 
