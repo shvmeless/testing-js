@@ -7,10 +7,9 @@ export function formatTimer ( time: number, min: number = 0, medium: number = 10
 	if ( time === min ) return '';
 
 	const color = time > max ? RED : time > medium ? YELLOW : WHITE;
-	const style = time > medium ? BOLD : '';
 
 	if ( time > 1000 ) time = Math.trunc( time / 100 ) / 10;
 
-	return `${ color }${ style }${ time } ms${ RESET }`;
+	return `${ BOLD }${ color }${ time } ms${ RESET }`;
 
 }

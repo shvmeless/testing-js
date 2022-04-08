@@ -71,7 +71,7 @@ export function displayGroup ( group: TestGroup ): void {
 
 	}
 
-	if ( count >= 5 ) output.print( `» showing ${ count } of ${ tests.length } failures!` );
+	if ( count >= 5 ) output.print( `» showing ${ BOLD }${ RED }${ count }${ RESET } of ${ BOLD }${ RED }${ tests.length }${ RESET } failures!` );
 	output.tabs( -1 );
 
 }
