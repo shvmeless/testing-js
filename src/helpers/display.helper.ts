@@ -1,8 +1,10 @@
 // IMPORTS
 import { Test, TestContext, TestFile, TestGroup } from '../utils/interfaces';
-import { BOLD, GREEN, RED, RESET } from '../utils/styles';
+import { BOLD, BRIGHT_WHITE, GREEN, RED, RESET } from '../utils/styles';
 import { basename, dirname, relative, sep } from 'path';
+import counter from '../classes/Counter';
 import output from '../classes/Output';
+import { formatTimer } from './formatter.helper';
 
 // FUNCTION
 export function displayFile ( file: TestFile, rootPath: string ): void {
@@ -20,9 +22,7 @@ export function displayFile ( file: TestFile, rootPath: string ): void {
 	const route = `${ dirname( path ) }${ sep }${ BOLD }${ basename( path ) }${ RESET }`;
 	const icon = `${ color }${ BOLD }▼${ RESET }`;
 
-	output
-		.newLine()
-		.print( `${ label } ${ route } ${ icon }` );
+	output.newLine().print( `${ label } ${ route } ${ icon }` );
 
 	for ( const context of contexts ) displayContext( context );
 
@@ -49,14 +49,16 @@ export function displayContext ( context: TestContext ): void {
 // FUNCTION
 export function displayGroup ( group: TestGroup ): void {
 
-	const { desc, result, tests } = group;
+	const { desc, result, tests, time } = group;
 
 	if ( tests.length <= 0 ) return;
 
 	const color = result ? GREEN : RED;
 	const icon = `${ color }${ BOLD }${ result ? '√' : '×' }${ RESET }`;
 
-	output.print( `${ icon } ${ desc }` );
+	const timer = formatTimer( time.end - time.start );
+
+	output.print( `${ icon } ${ desc } ${ timer }` );
 	output.tabs( 1 );
 
 	let count = 0;
@@ -69,7 +71,7 @@ export function displayGroup ( group: TestGroup ): void {
 
 	}
 
-	if ( count >= 5 ) output.print( `» showing ${ count } of ${ tests.length } failures!` );
+	if ( count >= 5 ) output.print( `» showing ${ BOLD }${ RED }${ count }${ RESET } of ${ BOLD }${ RED }${ tests.length }${ RESET } failures!` );
 	output.tabs( -1 );
 
 }
@@ -79,5 +81,25 @@ export function displayTest ( test: Test ): void {
 
 	const { message } = test;
 	output.print( `» ${ message }` );
+
+}
+
+// FUNCTION
+export function displayCounter (): void {
+
+	const { total, successful, failed } = counter.getCount();
+
+	output.newLine().print( `${ BRIGHT_WHITE }${ BOLD }Total: ${ total }${ RESET }` );
+	if ( successful > 0 ) output.print( `${ GREEN }${ BOLD }Successful: ${ successful }${ RESET }` );
+	if ( failed > 0 ) output.print( `${ RED }${ BOLD }Failed: ${ failed }${ RESET }` );
+
+}
+
+// FUNCTION
+export function displayTimer (): void {
+
+	const time = counter.getTimer();
+	const timer = formatTimer( time, -1, 5000, 10000 );
+	output.newLine().print( `${ BOLD }Time: ${ timer }${ RESET }` );
 
 }

@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 // IMPORTS
+import { displayCounter, displayFile, displayTimer } from './helpers/display.helper';
 import { searchTestFiles } from './helpers/general.helper';
-import { displayFile } from './helpers/display.helper';
 import { register, REGISTER_INSTANCE } from 'ts-node';
 import { Option, program } from 'commander';
 import testList from './classes/TestList';
@@ -15,7 +15,7 @@ const typescript = new Option( '--typescript', '' ).default( false );
 // PROGRAM
 program
 	.description( 'Execute test files.' )
-	.version( '0.1.2' )
+	.version( '0.2.0' )
 	.addOption( dir )
 	.addOption( typescript )
 	.action( async ( options ) => {
@@ -55,6 +55,9 @@ program
 		for ( const file of testList.getList() ) {
 			displayFile( file, currentPath );
 		}
+
+		displayCounter();
+		displayTimer();
 
 		process.exit();
 

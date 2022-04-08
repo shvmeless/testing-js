@@ -1,5 +1,6 @@
 // IMPORTS
 import { Test, TestContext, TestFile, TestGroup } from '../utils/interfaces';
+import counter from './Counter';
 
 // CLASS
 class TestList {
@@ -80,10 +81,15 @@ class TestList {
 		const group: TestGroup = {
 			desc: desc,
 			result: true,
+			time: {
+				start: new Date().getTime(),
+				end: new Date().getTime(),
+			},
 			tests: [],
 		};
 
 		this.getCurrentContext()?.groups.push( group );
+		counter.addGroup( group );
 
 	}
 
@@ -114,7 +120,8 @@ class TestList {
 			message: message,
 		};
 
-		this.getCurrentGroup()?.tests.push( test );
+		currentGroup.tests.push( test );
+		currentGroup.time.end = new Date().getTime();
 
 	}
 

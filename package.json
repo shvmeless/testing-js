@@ -2,7 +2,7 @@
 	"name": "@shvmeless/testing",
 	"displayName": "Shvmeless: Testing",
 	"description": "A simple and fast JavaScript framework for tests.",
-	"version": "0.1.2",
+	"version": "0.2.0",
 	"author": {
 		"name": "Luciano Aedo Puga",
 		"email": "shvme.development@gmail.com"
