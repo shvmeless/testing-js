@@ -3,6 +3,7 @@
 // IMPORTS
 import { searchTestFiles } from './helpers/general.helper';
 import { displayFile } from './helpers/display.helper';
+import { register, REGISTER_INSTANCE } from 'ts-node';
 import { Option, program } from 'commander';
 import testList from './classes/TestList';
 import { resolve } from 'path';
@@ -14,7 +15,7 @@ const typescript = new Option( '--typescript', '' ).default( false );
 // PROGRAM
 program
 	.description( 'Execute test files.' )
-	.version( '0.1.0' )
+	.version( '0.1.2' )
 	.addOption( dir )
 	.addOption( typescript )
 	.action( async ( options ) => {
@@ -26,10 +27,28 @@ program
 
 		const targetFiles = searchTestFiles( targetPath, typescript );
 
+		const isRunningTsNode = process[REGISTER_INSTANCE] ? true : process.env.TS_NODE_DEV ? true : false;
+
 		for ( const file of targetFiles ) {
 
 			testList.newFile( file );
-			await import( file );
+
+			if ( isRunningTsNode ) {
+				await import( file );
+				continue;
+			}
+
+			const registerer = register( {
+				compilerOptions: {
+					moduleResolution: 'node',
+					module: 'CommonJS',
+					target: 'es2016',
+				},
+			} );
+
+			if ( typescript ) registerer.enabled( true );
+			await require( file );
+			if ( typescript ) registerer.enabled( false );
 
 		}
 
