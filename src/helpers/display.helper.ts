@@ -4,6 +4,7 @@ import { BOLD, BRIGHT_WHITE, GREEN, RED, RESET } from '../utils/styles';
 import { basename, dirname, relative, sep } from 'path';
 import counter from '../classes/Counter';
 import output from '../classes/Output';
+import { formatTimer } from './formatter.helper';
 
 // FUNCTION
 export function displayFile ( file: TestFile, rootPath: string ): void {
@@ -48,14 +49,16 @@ export function displayContext ( context: TestContext ): void {
 // FUNCTION
 export function displayGroup ( group: TestGroup ): void {
 
-	const { desc, result, tests } = group;
+	const { desc, result, tests, time } = group;
 
 	if ( tests.length <= 0 ) return;
 
 	const color = result ? GREEN : RED;
 	const icon = `${ color }${ BOLD }${ result ? '√' : '×' }${ RESET }`;
 
-	output.print( `${ icon } ${ desc }` );
+	const timer = formatTimer( time.end - time.start );
+
+	output.print( `${ icon } ${ desc } ${ timer }` );
 	output.tabs( 1 );
 
 	let count = 0;
