@@ -81,6 +81,10 @@ class TestList {
 		const group: TestGroup = {
 			desc: desc,
 			result: true,
+			time: {
+				start: new Date().getTime(),
+				end: new Date().getTime(),
+			},
 			tests: [],
 		};
 
@@ -116,7 +120,8 @@ class TestList {
 			message: message,
 		};
 
-		this.getCurrentGroup()?.tests.push( test );
+		currentGroup.tests.push( test );
+		currentGroup.time.end = new Date().getTime();
 
 	}
 
