@@ -1,5 +1,6 @@
 // IMPORTS
 import { Test, TestContext, TestFile, TestGroup } from '../utils/interfaces';
+import counter from './Counter';
 
 // CLASS
 class TestList {
@@ -84,6 +85,7 @@ class TestList {
 		};
 
 		this.getCurrentContext()?.groups.push( group );
+		counter.addGroup( group );
 
 	}
 
