@@ -42,6 +42,17 @@ class Counter {
 
 	}
 
+	// METHOD
+	public getTimer (): number {
+
+		let timer = 0;
+
+		for ( const group of this.groups ) timer += group.time.end - group.time.start;
+
+		return timer;
+
+	}
+
 }
 
 // EXPORT
