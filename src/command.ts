@@ -3,10 +3,10 @@
 // IMPORTS
 import { searchTestFiles } from './helpers/general.helper';
 import { displayFile } from './helpers/display.helper';
+import { register, REGISTER_INSTANCE } from 'ts-node';
 import { Option, program } from 'commander';
 import testList from './classes/TestList';
 import { resolve } from 'path';
-import { register } from 'ts-node';
 
 // OPTIONS
 const dir = new Option( '--dir <directory>', 'Set the directory where to find the tests files.' ).default( '.' );
@@ -27,9 +27,16 @@ program
 
 		const targetFiles = searchTestFiles( targetPath, typescript );
 
+		const isRunningTsNode = process[REGISTER_INSTANCE] ? true : process.env.TS_NODE_DEV ? true : false;
+
 		for ( const file of targetFiles ) {
 
 			testList.newFile( file );
+
+			if ( isRunningTsNode ) {
+				await import( file );
+				continue;
+			}
 
 			const registerer = register( {
 				compilerOptions: {
@@ -39,9 +46,9 @@ program
 				},
 			} );
 
-			registerer.enabled( true );
+			if ( typescript ) registerer.enabled( true );
 			await require( file );
-			registerer.enabled( false );
+			if ( typescript ) registerer.enabled( false );
 
 		}
 
