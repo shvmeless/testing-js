@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 // IMPORTS
-import { displayCounter, displayFile } from './helpers/display.helper';
+import { displayCounter, displayFile, displayTimer } from './helpers/display.helper';
 import { searchTestFiles } from './helpers/general.helper';
 import { register, REGISTER_INSTANCE } from 'ts-node';
 import { Option, program } from 'commander';
@@ -57,6 +57,7 @@ program
 		}
 
 		displayCounter();
+		displayTimer();
 
 		process.exit();
 
