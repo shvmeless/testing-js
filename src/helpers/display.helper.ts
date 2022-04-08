@@ -94,3 +94,12 @@ export function displayCounter (): void {
 	if ( failed > 0 ) output.print( `${ RED }${ BOLD }Failed: ${ failed }${ RESET }` );
 
 }
+
+// FUNCTION
+export function displayTimer (): void {
+
+	const time = counter.getTimer();
+	const timer = formatTimer( time, -1, 5000, 10000 );
+	output.newLine().print( `${ BOLD }Time: ${ timer }${ RESET }` );
+
+}
