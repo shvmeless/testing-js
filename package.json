@@ -2,8 +2,11 @@
 	"name": "@shvmeless/testing",
 	"displayName": "Shvmeless: Testing",
 	"description": "A simple and fast JavaScript framework for tests.",
-	"version": "0.1.0",
-	"author": "Luciano Aedo Puga <shvme.development@gmail.com>",
+	"version": "0.1.1",
+	"author": {
+		"name": "Luciano Aedo Puga",
+		"email": "shvme.development@gmail.com"
+	},
 	"license": "MIT",
 	"repository": {
 		"type": "git",
@@ -16,14 +19,17 @@
 		"typescript"
 	],
 	"main": "index.js",
-	"bin": "./command.js",
-	"exports": [
-		"./index.js"
-	],
+	"bin": "command.js",
+	"exports": {
+		".": "./index.js"
+	},
+	"types": "**/*.d.ts",
 	"files": [
 		"classes",
 		"helpers",
-		"utils"
+		"utils",
+		"**/*.js",
+		"**/*.d.ts"
 	],
 	"scripts": {
 		"delete:node": "rimraf ./node_modules",
