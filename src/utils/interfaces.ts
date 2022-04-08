@@ -22,6 +22,10 @@ export interface TestContext {
 export interface TestGroup {
 	desc: string,
 	result: boolean,
+	time: {
+		start: number,
+		end: number
+	},
 	tests: Test[],
 }
 
