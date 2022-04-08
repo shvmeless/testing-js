@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
 // IMPORTS
+import { displayCounter, displayFile } from './helpers/display.helper';
 import { searchTestFiles } from './helpers/general.helper';
-import { displayFile } from './helpers/display.helper';
 import { register, REGISTER_INSTANCE } from 'ts-node';
 import { Option, program } from 'commander';
 import testList from './classes/TestList';
@@ -55,6 +55,8 @@ program
 		for ( const file of testList.getList() ) {
 			displayFile( file, currentPath );
 		}
+
+		displayCounter();
 
 		process.exit();
 

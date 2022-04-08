@@ -1,7 +1,8 @@
 // IMPORTS
 import { Test, TestContext, TestFile, TestGroup } from '../utils/interfaces';
-import { BOLD, GREEN, RED, RESET } from '../utils/styles';
+import { BOLD, BRIGHT_WHITE, GREEN, RED, RESET } from '../utils/styles';
 import { basename, dirname, relative, sep } from 'path';
+import counter from '../classes/Counter';
 import output from '../classes/Output';
 
 // FUNCTION
@@ -20,9 +21,7 @@ export function displayFile ( file: TestFile, rootPath: string ): void {
 	const route = `${ dirname( path ) }${ sep }${ BOLD }${ basename( path ) }${ RESET }`;
 	const icon = `${ color }${ BOLD }▼${ RESET }`;
 
-	output
-		.newLine()
-		.print( `${ label } ${ route } ${ icon }` );
+	output.newLine().print( `${ label } ${ route } ${ icon }` );
 
 	for ( const context of contexts ) displayContext( context );
 
@@ -79,5 +78,16 @@ export function displayTest ( test: Test ): void {
 
 	const { message } = test;
 	output.print( `» ${ message }` );
+
+}
+
+// FUNCTION
+export function displayCounter (): void {
+
+	const { total, successful, failed } = counter.getCount();
+
+	output.newLine().print( `${ BRIGHT_WHITE }${ BOLD }Total: ${ total }${ RESET }` );
+	if ( successful > 0 ) output.print( `${ GREEN }${ BOLD }Successful: ${ successful }${ RESET }` );
+	if ( failed > 0 ) output.print( `${ RED }${ BOLD }Failed: ${ failed }${ RESET }` );
 
 }
